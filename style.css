@@ -1,0 +1,81 @@
+body {
+    background-image: url(https://vignette.wikia.nocookie.net/pixeldungeon/images/5/50/Wiki-background/revision/latest?cb=20140612002646);
+}
+
+h1 {
+    text-align: center;
+    font-size: 25px;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-weight: bolder;
+    background: rgb(0, 88, 204);
+    width: 32%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1px;
+    border-radius: 5px
+}
+
+#player {
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    position: absolute;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.mazeRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.borderWall {
+    background: rebeccapurple;
+    height: 40px;
+    width: 40px;
+}
+
+#start {
+    height: 40px;
+    width: 40px;
+    background: rgb(102, 102, 102);
+}
+
+.blankSpace {
+    height: 40px;
+    width: 40px;
+    background: rgb(0, 0, 0);
+}
+
+#finish {
+    height: 40px;
+    width: 40px;
+    background: rgb(204, 0, 149);
+}
+
+.location{
+    height: 40px;
+    width: 40px;
+    background:yellow;
+}
+
+.box{
+    height: 40px;
+    width: 40px;
+    background: aqua;
+    border-radius: 20px;
+}
+
+.boxOn{
+    height: 40px;
+    width: 40px;
+    background:green;
+}
