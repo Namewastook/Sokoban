@@ -7,29 +7,23 @@ const map = [
     "W         W     W W W",
     "W WWW WWWWW WWWWW W W",
     "W WOB W   W W     W W",
-    "W WWWWWBW W W W W W F",
+    "W WWWWW W W W W W W F",
     "S     W W W W W W WWW",
-    "WWWWW W W W W W W WOW",
-    "W     WOW W   W W W W",
-    "W WWWWWWW WWWWW W WBW",
-    "W B    OW       W   W",
+    "WWWWW WBW W W W W WOW",
+    "W     WOW W   W W WBW",
+    "W WWWWWWW WWWWW W W W",
+    "W     BOW       W   W",
     "WWWWWWWWWWWWWWWWWWWWW",
 ];
 
-/*const map = [
-    "    WWWWW          ",
-    "    W   W          ",
-    "    WB  W          ",
-    "  WWW  BWW         ",
-    "  W  B B W         ",
-    "WWW W WW W   WWWWWW",
-    "W   W WW WWWWW  OOW",
-    "W B  B          OOW",
-    "WWWWW WWW WSWW  OOW",
-    "    W     WWWWWWWWW",
-    "    WWWWWWW        "
-]*/
+let thing = document.getElementsByClassName("boxOn")
 
+function checkWin() {
+    if (thing.length === 10)
+        setTimeout(function () {
+            alert("You have solved the puzzle! But can you find the hidden exit?")()
+        }, 1)
+}
 
 function changeImage() {
     let img = document.getElementById('player');
@@ -117,53 +111,80 @@ let currentPosition = start;
 
 document.addEventListener('keydown', (event) => {
 
+
     switch (event.key) {
 
         case 'ArrowUp':
             let nextPositionUp = Number(currentPosition.dataset.rowIndex) - 1;
             let nextMoveUp = document.querySelector("[data-row-index = '" + nextPositionUp + "'][data-cell-index = '" + currentPosition.dataset.cellIndex + "']");
+            let twoMoveUp = document.querySelector("[data-row-index = '" + (nextPositionUp - 1) + "'][data-cell-index = '" + currentPosition.dataset.cellIndex + "']");
             if (nextMoveUp.dataset.cellType === "floor") {
                 nextMoveUp.appendChild(player);
                 currentPosition = nextMoveUp;
-            } else if (nextMoveUp.dataset.cellType === "box")
-                nextMoveUp.removeChild(box)
-                nextMoveUp.appendChild(floor)
+            } else if (nextMoveUp.dataset.cellType === "box") {
+                nextMoveUp.classList.remove("box")
+                nextMoveUp.classList.add("blankSpace")
+                twoMoveUp.classList.add("boxOn")
                 nextMoveUp.appendChild(player)
                 currentPosition = nextMoveUp
-             {
+                checkWin()
             }
             break;
 
         case 'ArrowDown':
             let nextPositionDown = Number(currentPosition.dataset.rowIndex) + 1;
             let nextMoveDown = document.querySelector("[data-row-index = '" + nextPositionDown + "'][data-cell-index = '" + currentPosition.dataset.cellIndex + "']");
-            if (nextMoveDown.dataset.cellType === "floor" || nextMoveDown.dataset.cellType === "box") {
+            let twoMoveDown = document.querySelector("[data-row-index = '" + (nextPositionDown + 1) + "'][data-cell-index = '" + currentPosition.dataset.cellIndex + "']");
+            if (nextMoveDown.dataset.cellType === "floor") {
                 nextMoveDown.appendChild(player);
                 currentPosition = nextMoveDown;
+            } else if (nextMoveDown.dataset.cellType === "box") {
+                nextMoveDown.classList.remove("box")
+                nextMoveDown.classList.add("blankSpace")
+                twoMoveDown.classList.add("boxOn")
+                nextMoveDown.appendChild(player)
+                currentPosition = nextMoveDown
+                checkWin()
             }
             break;
 
         case 'ArrowLeft':
             let nextPositionLeft = Number(currentPosition.dataset.cellIndex) - 1;
             let nextMoveLeft = document.querySelector("[data-row-index = '" + currentPosition.dataset.rowIndex + "'][data-cell-index = '" + nextPositionLeft + "']");
-            if (nextMoveLeft.dataset.cellType === "floor" || nextMoveLeft.dataset.cellType === "box") {
+            let twoMoveLeft = document.querySelector("[data-row-index = '" + (currentPosition.dataset.rowIndex) + "'][data-cell-index = '" + (nextPositionLeft - 1) + "']");
+            if (nextMoveLeft.dataset.cellType === "floor") {
                 nextMoveLeft.appendChild(player);
                 currentPosition = nextMoveLeft;
+            } else if (nextMoveLeft.dataset.cellType === "box") {
+                nextMoveLeft.classList.remove("box")
+                nextMoveLeft.classList.add("blankSpace")
+                twoMoveLeft.classList.add("boxOn")
+                nextMoveLeft.appendChild(player)
+                currentPosition = nextMoveLeft
+                checkWin()
             }
             break;
 
         case 'ArrowRight':
             let nextPositionRight = Number(currentPosition.dataset.cellIndex) + 1;
             let nextMoveRight = document.querySelector("[data-row-index = '" + currentPosition.dataset.rowIndex + "'][data-cell-index = '" + nextPositionRight + "']");
-            if (nextMoveRight.dataset.cellType === "floor" || nextMoveRight.dataset.cellType === "box") {
+            let twoMoveRight = document.querySelector("[data-row-index = '" + (currentPosition.dataset.rowIndex) + "'][data-cell-index = '" + (nextPositionRight + 1) + "']");
+            if (nextMoveRight.dataset.cellType === "floor") {
                 nextMoveRight.appendChild(player);
                 currentPosition = nextMoveRight;
+            } else if (nextMoveRight.dataset.cellType === "box") {
+                nextMoveRight.classList.remove("box")
+                nextMoveRight.classList.add("blankSpace")
+                twoMoveRight.classList.add("boxOn")
+                nextMoveRight.appendChild(player)
+                currentPosition = nextMoveRight
+                checkWin()
             } else if (nextMoveRight.dataset.cellType === "end") {
                 nextMoveRight.appendChild(player);
                 currentPosition = nextMoveRight;
                 setTimeout(function () {
-                    alert("You have found your way out of the maze adventurer!");
-                }, 1);
+                    alert("You have found the hidden exit and solved the deadly puzzle! Congratulations!");
+                }, 1)
             }
             break;
     }
